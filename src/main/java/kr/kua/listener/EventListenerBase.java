@@ -72,7 +72,7 @@ public class EventListenerBase implements Listener {
     }
     private void sendLeaveMessage(final Iterable<ProxiedPlayer> players, final String name) {
         final BaseComponent[] message = TextComponent.fromLegacyText(
-                ChatColor.of("#AAAAAA") + "[" +
+                        ChatColor.of("#AAAAAA") + "[" +
                         ChatColor.of("#FF5555") + "-" +
                         ChatColor.of("#AAAAAA") + "] " + name
         );
