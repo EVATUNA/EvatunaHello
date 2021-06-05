@@ -1,18 +1,13 @@
 package kr.kua;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import kr.kua.command.SearchCommand;
 import kr.kua.listener.EventListenerBase;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
 
 public final class EvatunaHello extends Plugin {
-    private Config config = null;
+//    private Config config = null;
 
     @Override
     public void onEnable() {
@@ -27,5 +22,19 @@ public final class EvatunaHello extends Plugin {
     @Override
     public void onDisable() {
         getLogger().info("EvaTunaHello Disabled.");
+    }
+
+    public static boolean isBot(String name) {
+        switch(name) {
+            case "Geralt_w":
+            case "LopLove":
+            case "dohun1":
+            case "1L_Bottle":
+            case "creamcrepe":
+            case "AppleCrepe":
+                return true;
+            default:
+                return false;
+        }
     }
 }

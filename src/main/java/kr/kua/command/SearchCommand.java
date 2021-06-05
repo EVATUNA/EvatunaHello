@@ -19,7 +19,7 @@ public class SearchCommand extends Command {
     public void execute(CommandSender sender, String[] args) {
 
         if ((sender instanceof ProxiedPlayer)) {
-            ProxiedPlayer p = (ProxiedPlayer)sender;
+            ProxiedPlayer p = (ProxiedPlayer) sender;
 
             if (args.length == 0) {
                 p.sendMessage(new ComponentBuilder("/search [키워드] 로 검색하세요.").color(ChatColor.WHITE).create());
@@ -28,14 +28,14 @@ public class SearchCommand extends Command {
                 List<String> rPlayers = new ArrayList<>();
 
                 for (int i = 0; i < players.size(); i++) {
-                    String cur_str = (String)players.toArray()[i];
+                    String cur_str = (String) players.toArray()[i];
                     if (cur_str.contains(args[0])) rPlayers.add(cur_str);
                 }
 
                 if (rPlayers.size() == 0) {
                     p.sendMessage(new ComponentBuilder("검색 결과가 없습니다.").color(ChatColor.WHITE).create());
                 } else {
-                    p.sendMessage(new ComponentBuilder("검색결과["+rPlayers.size()+"] : " + attachListString(rPlayers)).color(ChatColor.WHITE).create());
+                    p.sendMessage(new ComponentBuilder("검색결과[" + rPlayers.size() + "] : " + attachListString(rPlayers)).color(ChatColor.WHITE).create());
                 }
             }
         }
