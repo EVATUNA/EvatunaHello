@@ -1,51 +1,105 @@
-import org.apache.tools.ant.filters.ReplaceTokens
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.10'
+}
 
-apply plugin: 'java'
-
-group = 'kr.kua'
+group = 'kr.kua.evatunahello'
 version = '1.0.0-SNAPSHOT'
-
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
 
 repositories {
     mavenCentral()
+    maven {
+        name = 'papermc-repo'
+        url = 'https://papermc.io/repo/repository/maven-public/'
+    }
     maven {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
     maven {
-        name = 'destroystokyo-repo'
-        url = 'https://repo.destroystokyo.com/repository/maven-public/'
+        name = 'mythicmobs'
+        url = 'https://mvn.lumine.io/repository/maven-public/'
     }
     maven {
-        url = "https://plugins.gradle.org/m2/"
+        name = 'protocollib'
+        url = 'https://repo.dmulloy2.net/repository/public/'
     }
     maven {
-        name = 'papermc'
-        url = 'https://papermc.io/repo/repository/maven-public/'
+        name = 'KotlinBukkitAPI'
+        url = 'https://nexus.devsrsouza.com.br/repository/maven-public/'
     }
     maven {
-        name = 'jitpack.io'
+        name = 'md5' // LibsDisguise
+        url = 'https://repo.md-5.net/content/groups/public/'
+    }
+    maven {
+        name = 'jitPack'
         url = 'https://jitpack.io'
     }
 }
 
 dependencies {
-    implementation 'org.jetbrains:annotations:20.1.0'
+    compileOnly 'io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT'
+    compileOnly "io.github.waterfallmc:waterfall-api:1.18-R0.1-SNAPSHOT"
+    compileOnly "br.com.devsrsouza.kotlinbukkitapi:core:0.2.0-SNAPSHOT"
 
-    compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
-    compileOnly 'io.github.waterfallmc:waterfall-api:1.16-R0.5-SNAPSHOT'
+    implementation "io.papermc:paperlib:1.0.7"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
-processResources {
-    from(sourceSets.main.resources.srcDirs) {
-        filter ReplaceTokens, tokens: [version: version]
+def targetJavaVersion = 17
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
 }
 
-compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
+}
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+jar {
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+compileJava.options.encoding = 'UTF-8' // Encode your source code with UTF-8
+// Generate Sources Jar
+task sourcesJar(type: Jar) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
+// Generate Javadoc Jar
+task javadocJar(type: Jar) {
+    classifier 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives sourcesJar, javadocJar // Build Sources and Javadoc Jar
 }

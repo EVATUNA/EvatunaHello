@@ -1,0 +1,10 @@
+name: EvatunaHello
+version: '${version}'
+main: kr.kua.evatunahello.Main
+api-version: 1.18
+authors: [ Kua ]
+website: https://evatuna.fish
+
+commands:
+  mythictuna:
+    description: reload config
