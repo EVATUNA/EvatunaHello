@@ -63,7 +63,7 @@ class EventListenerBase(plugin: Main) : Listener {
     private fun broadcastMessage(players: Iterable<ProxiedPlayer>, content: String) {
         val message = TextComponent.fromLegacyText(content)
         for (player: ProxiedPlayer in players) {
-            if (player.server.info.name == "guest") return
+            if (player.server != null && player.server.info.name == "guest") return
             player.sendMessage(*message)
         }
     }
@@ -74,7 +74,7 @@ class EventListenerBase(plugin: Main) : Listener {
             "\uE4E5 ${ChatColor.of("#808080")}$name"
         )
         for (player: ProxiedPlayer in players) {
-            if (player.server.info.name == "guest") return
+            if (player.server != null && player.server.info.name == "guest") return
             player.sendMessage(*message)
         }
     }
@@ -85,7 +85,7 @@ class EventListenerBase(plugin: Main) : Listener {
             "\uE4E6 ${ChatColor.of("#808080")}$name"
         )
         for (player: ProxiedPlayer in players) {
-            if (player.server.info.name == "guest") return
+            if (player.server != null && player.server.info.name == "guest") return
             player.sendMessage(*message)
         }
     }
