@@ -1,6 +1,7 @@
 package kr.kua.evatunahello.listener
 
 import kr.kua.evatunahello.Main
+import litebans.api.Database
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.ProxyServer
 import net.md_5.bungee.api.chat.TextComponent
@@ -28,7 +29,8 @@ class EventListenerBase(plugin: Main) : Listener {
             if (event.reason != ServerConnectEvent.Reason.JOIN_PROXY) return
         } catch (ex: Exception) {
         }
-        sendJoinMessage(ProxyServer.getInstance().players, player.name)
+        val isBanned = Database.get().isPlayerBanned(player.uniqueId, null)
+        if (!isBanned) sendJoinMessage(ProxyServer.getInstance().players, player.name)
     }
 
     @net.md_5.bungee.event.EventHandler(priority = EventPriority.NORMAL)
