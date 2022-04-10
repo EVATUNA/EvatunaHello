@@ -23,7 +23,7 @@ class EventListenerBase(plugin: Main) : Listener {
     fun ServerConnectEvent(event: ServerConnectEvent) {
         val player = event.player
         try {
-            if (plugin.isBot(player.name)) return
+//            if (plugin.isBot(player.name)) return
             if (event.target.name == "guest") return
             if (event.reason != ServerConnectEvent.Reason.JOIN_PROXY) return
         } catch (ex: Exception) {
@@ -35,7 +35,7 @@ class EventListenerBase(plugin: Main) : Listener {
     fun PlayerDisconnectEvent(event: PlayerDisconnectEvent) {
         val player = event.player
         try {
-            if (plugin.isBot(player.name)) return
+//            if (plugin.isBot(player.name)) return
             if (event.player.server.info.name == "guest") return
             sendLeaveMessage(ProxyServer.getInstance().players, player.name)
         } catch (ex: Exception) {
@@ -46,7 +46,7 @@ class EventListenerBase(plugin: Main) : Listener {
     fun ServerSwitchEvent(event: ServerSwitchEvent) {
         val player = event.player
         try {
-            if (plugin.isBot(player.name)) return
+//            if (plugin.isBot(player.name)) return
             if (event.from == null) return
             if (event.from.name != "guest") return
         } catch (ex: Exception) {
