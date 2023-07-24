@@ -1,7 +1,7 @@
 name: EvatunaHello
 version: '${version}'
 main: kr.kua.evatunahello.Main
-api-version: 1.18
+api-version: 1.20
 authors: [ Kua ]
 depend: [Litebans]
 website: https://evatuna.fish

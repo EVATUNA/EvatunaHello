@@ -1,10 +1,12 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.6.10'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.0'
 }
 
 group = 'kr.kua.evatunahello'
-version = '1.0.2-SNAPSHOT'
+version = '1.0.3-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -17,26 +19,16 @@ repositories {
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
     maven {
-        name = 'protocollib'
-        url = 'https://repo.dmulloy2.net/repository/public/'
-    }
-    maven {
-        name = 'KotlinBukkitAPI'
-        url = 'https://nexus.devsrsouza.com.br/repository/maven-public/'
-    }
-    maven {
         name = 'jitPack'
         url = 'https://jitpack.io'
     }
 }
 
 dependencies {
-    compileOnly 'io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT'
-    compileOnly "io.github.waterfallmc:waterfall-api:1.18-R0.1-SNAPSHOT"
-    compileOnly "br.com.devsrsouza.kotlinbukkitapi:core:0.2.0-SNAPSHOT"
+    compileOnly 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT'
+    compileOnly "io.github.waterfallmc:waterfall-api:1.20-R0.1-SNAPSHOT"
     compileOnly "com.gitlab.ruany:LiteBansAPI:0.3.5"
 
-    implementation "io.papermc:paperlib:1.0.7"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
@@ -64,14 +56,10 @@ processResources {
         expand props
     }
 }
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
+
+kotlin {
+    compilerOptions {
+        apiVersion.set(KotlinVersion.KOTLIN_1_9)
     }
 }
 
