@@ -1,5 +1,6 @@
 package kr.kua.evatunahello.listener
 
+import com.google.common.io.ByteStreams
 import kr.kua.evatunahello.Main
 import litebans.api.Database
 import net.md_5.bungee.api.ChatColor
@@ -7,6 +8,7 @@ import net.md_5.bungee.api.ProxyServer
 import net.md_5.bungee.api.chat.TextComponent
 import net.md_5.bungee.api.connection.ProxiedPlayer
 import net.md_5.bungee.api.event.PlayerDisconnectEvent
+import net.md_5.bungee.api.event.PluginMessageEvent
 import net.md_5.bungee.api.event.ServerConnectEvent
 import net.md_5.bungee.api.event.ServerSwitchEvent
 import net.md_5.bungee.event.EventPriority
@@ -19,6 +21,24 @@ class EventListenerBase(plugin: Main) : Listener {
 
     init {
         this.plugin = plugin
+    }
+
+    @EventHandler
+    fun onPluginMessage(event: PluginMessageEvent) {
+        if (event.tag != "BungeeCord") return
+        if (ByteStreams.newDataInput(event.data).readUTF() != "NewbieHello") return
+
+        broadcastMessage(
+            "\uD83C\uDF89 " + ChatColor.of("#FF55FF") + event.receiver + " §7님이 서버에 처음 접속 하셨습니다. §r\uD83D\uDC4F\uD83D\uDC4F"
+        )
+    }
+
+    private fun broadcastMessage(content: String) {
+        val message = TextComponent.fromLegacyText(content)
+        for (player: ProxiedPlayer in ProxyServer.getInstance().players) {
+            if (player.server != null && player.server.info.name == "guest") return
+            player.sendMessage(*message)
+        }
     }
 
     @EventHandler(priority = EventPriority.LOW)
