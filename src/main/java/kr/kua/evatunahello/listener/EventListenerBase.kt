@@ -31,6 +31,9 @@ class EventListenerBase(plugin: Main) : Listener {
         broadcastMessage(
             "\uD83C\uDF89 " + ChatColor.of("#FF55FF") + event.receiver + " §7님이 서버에 처음 접속 하셨습니다. §r\uD83D\uDC4F\uD83D\uDC4F"
         )
+
+        val player = plugin.proxy.getPlayer(event.receiver.toString())
+        player.sendMessage("\ue4e3 ${ChatColor.RESET}에바참치 가이드: https://lavender-tugboat-45a.notion.site/EVATUNA-2-INFORMATION-2cda1b9629b54950a959fccb6d00dbe1")
     }
 
     private fun broadcastMessage(content: String) {
