@@ -22,12 +22,18 @@ repositories {
         name = 'jitPack'
         url = 'https://jitpack.io'
     }
+    maven {
+        name = 'codecraft47-repo' // BungeeTabListPlus
+        url = 'http://nexus.codecrafter47.de/content/repositories/public/'
+        allowInsecureProtocol = true
+    }
 }
 
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT'
     compileOnly "io.github.waterfallmc:waterfall-api:1.20-R0.1-SNAPSHOT"
     compileOnly "com.gitlab.ruany:LiteBansAPI:0.3.5"
+    compileOnly "codecrafter47.bungeetablistplus:bungeetablistplus-api-bungee:2.7.0"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }

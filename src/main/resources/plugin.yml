@@ -3,7 +3,7 @@ version: '${version}'
 main: kr.kua.evatunahello.Main
 api-version: 1.20
 authors: [ Kua ]
-depend: [Litebans]
+depend: [Litebans,BungeeTabListPlus]
 website: https://evatuna.fish
 
 commands:

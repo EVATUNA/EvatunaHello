@@ -1,5 +1,8 @@
 package kr.kua.evatunahello.listener
 
+import codecrafter47.bungeetablistplus.api.bungee.BungeeTabListPlusAPI
+import codecrafter47.bungeetablistplus.api.bungee.placeholder.PlaceholderProvider
+import codecrafter47.bungeetablistplus.api.bungee.placeholder.PlaceholderProvider.PlaceholderBuilder
 import com.google.common.io.ByteStreams
 import kr.kua.evatunahello.Main
 import litebans.api.Database
@@ -55,14 +58,16 @@ class EventListenerBase(plugin: Main) : Listener {
         }
         val isBanned = Database.get().isPlayerBanned(player.uniqueId, null)
         if (!isBanned) sendJoinMessage(ProxyServer.getInstance().players, player.name)
+
+//        BungeeTabListPlusAPI.
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
     fun PlayerDisconnectEvent(event: PlayerDisconnectEvent) {
         val player = event.player
         try {
-//            if (plugin.isBot(player.name)) return
-//            if (event.player.server.info.name == "guest") return
+//            if (plugin.isBot(player.name))turn
+////            if (event.player.server.info.name re == "guest") return
             sendLeaveMessage(ProxyServer.getInstance().players, player.name)
         } catch (ex: Exception) {
         }
